@@ -15,3 +15,12 @@ class RegisterView(FormView):
         login(self.request, user)
         return super().form_valid(form)
 
+
+class CustomLoginView(LoginView):
+    template_name = "user_app/login.html"
+    authentication_form = CustomAuthenticationForm
+    redirect_authenticated_user = True
+    success_url = reverse_lazy("profile")
+
+    def get_success_url(self):
+        return self.success_url
