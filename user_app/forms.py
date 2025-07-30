@@ -21,3 +21,17 @@ class CustomUserCreationForm(UserCreationForm):
         if UserModel.objects.filter(email=email).exists():
             return forms.ValidationError("Пользователь с таким email уже существует")
         return email
+
+
+class CustomAuthenticationForm(AuthenticationForm):
+    username = forms.EmailField(
+        required=True,
+        label="Электронная почта",
+        widget=forms.EmailInput(attrs={"class":"form-control", "placeholder": "Введите email"}),
+    )
+
+    def clean_username(self):
+        username = self.cleaned_data.get("username").lower()
+        if not UserModel.objects.filter(username=username).exists():
+            return forms.ValidationError("Пользователя с таким email не существует")
+        return username
