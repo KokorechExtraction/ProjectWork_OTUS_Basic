@@ -1,8 +1,10 @@
 from django.urls import reverse_lazy
-from django.views.generic import FormView, RedirectView
+from django.views.generic import FormView, RedirectView, DetailView
 from django.contrib.auth.views import LoginView, LogoutView
 from .forms import CustomUserCreationForm, CustomAuthenticationForm
 from django.contrib.auth import login
+
+from .models import CustomUser
 
 
 class RegisterView(FormView):
@@ -28,3 +30,10 @@ class CustomLoginView(LoginView):
 
 class CustomLoginOutView(LogoutView):
     next_page = reverse_lazy("login")
+
+
+class CustomProfileView(DetailView):
+    model = CustomUser
+    template_name = "user_app/profile.html"
+    context_object_name = "profile"
+
