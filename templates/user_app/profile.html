@@ -3,7 +3,9 @@
 {% block title %} {{ title }} {% endblock %}
 
 {% block content %}
-        <h1>{{ profile.email }}</h1>
+       {% if request.user.is_authenticated %}
+        <h1>{{ profile.email }}
+                {% endif %}
 <!--        <p>Категория: {{ product.category.name }}</p>-->
 <!--        <p>Описание: {{product.description}}</p>-->
 <!--        <p>Цена: {{product.price}}</p>-->
