@@ -33,7 +33,6 @@ class CustomLoginView(LoginView):
 
 
 class CustomLoginOutView(LogoutView):
-    template_name = "user_app/logout.html"
     next_page = reverse_lazy("login")
 
 
