@@ -36,6 +36,7 @@ class CustomUser(AbstractUser):
         unique=True,
         verbose_name="Электронная почта",
     )
+    phone_number = models.CharField(unique=True, blank=True, null=True, verbose_name="Номер телефона")
     date_of_birth = models.DateField(blank=True, null=True, verbose_name="Дата рождения")
     avatar = models.ImageField(upload_to="avatars", blank=True, null=True, verbose_name="Аватар")
 

@@ -11,9 +11,15 @@ class CustomUserCreationForm(UserCreationForm):
         label="Электронная почта",
         widget=forms.EmailInput(attrs={"class": "form-control", "placeholder": "Введите email"}),
     )
+    phone_number = forms.DateField(
+
+        required=False,
+        label="Номер телефона",
+        widget=forms.DateInput(attrs={"class": "form-control", "placeholder": "Введите номер телефона"})
+    )
     class Meta:
         model = get_user_model()
-        fields = ("email",)
+        fields = ("email", 'phone_number', 'password1', 'password2', )
 
     def clean_email(self):
         email = self.cleaned_data.get("email").lower()
@@ -31,7 +37,7 @@ class CustomAuthenticationForm(AuthenticationForm):
     )
 
     def clean_username(self):
-        username = self.cleaned_data.get("username").lower()
-        if not UserModel.objects.filter(username=username).exists():
+        username = self.cleaned_data.get("username")
+        if not UserModel.objects.filter(email=username).exists():
             return forms.ValidationError("Пользователя с таким email не существует")
         return username
