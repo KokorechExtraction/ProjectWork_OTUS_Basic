@@ -4,8 +4,19 @@
 
 {% block content %}
        {% if request.user.is_authenticated %}
-        <h1>{{ profile.email }}
-                {% endif %}
+        <p>Email: {{user.email}} </p>
+        <p>Username: {{user.username}} </p>
+        <p>Номер телефона: {{user.phone_number}}</p>
+        <p>Дата рождения: {{user.date_of_birth}} </p>
+
+
+
+
+        <a href="{% url 'edit_profile'  user.id %}" class="btn btm-sm btn-warning">Редактировать</a>
+        <a href="{% url 'index' %}" class="btn btn-secondary mt-3">На главную</a>
+
+
+       {% endif %}
 <!--        <p>Категория: {{ product.category.name }}</p>-->
 <!--        <p>Описание: {{product.description}}</p>-->
 <!--        <p>Цена: {{product.price}}</p>-->
