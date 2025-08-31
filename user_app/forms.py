@@ -49,13 +49,15 @@ class CustomUserChangeForm(UserChangeForm):
 
     class Meta:
         model = get_user_model()
-        fields = ("email", "username", "phone_number", "date_of_birth", "avatar",)
+        fields = ("email", "username", "phone_number", "date_of_birth", "avatar", "first_name", "last_name")
         labels = {
             'username': 'Имя пользователя',
             'email': 'Email',
             'phone_number': 'Номер телефона',
             'date_of_birth': 'Дата рождения',
-            'avatar': 'Аватар'
+            'avatar': 'Аватар',
+            'first_name': 'Имя',
+            'last_name': 'Фамилия',
         }
 
     def clean_username(self):
