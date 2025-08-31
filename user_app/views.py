@@ -2,6 +2,7 @@ from django.urls import reverse_lazy
 from django.views.generic import FormView, RedirectView, DetailView, TemplateView, UpdateView
 from django.contrib.auth.views import LoginView, LogoutView
 from .forms import CustomUserCreationForm, CustomAuthenticationForm, CustomUserChangeForm
+from .task import send_info_email
 from django.contrib.auth import login
 from django.contrib import messages
 
@@ -20,6 +21,11 @@ class RegisterView(FormView):
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
+        send_info_email.delay(
+            recipient_email='user@example.com',
+            subject='Аккаунт успешно зарегистрирован',
+            message='Аккаунт успешно зарегистрирован'
+        )
         return super().form_valid(form)
 
 
