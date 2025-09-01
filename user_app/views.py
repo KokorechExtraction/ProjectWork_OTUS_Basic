@@ -12,6 +12,11 @@ from .models import CustomUser
 class IndexTemplateView(TemplateView):
     template_name = "index.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Моя оборона'
+        context['description'] = 'Добро пожаловать в Мою оборону'
+        return context
 
 class RegisterView(FormView):
     template_name = "user_app/register.html"

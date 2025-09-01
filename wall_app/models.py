@@ -23,8 +23,10 @@ class Comment(models.Model):
         return f"{self.author}'s comment"
 
 
+
 class AuthorProfile(models.Model):
     author = models.OneToOneField("CustomUser", on_delete=models.CASCADE, related_name="profile")
+    bio = models.TextField()
 
     def __str__(self):
         return self.author
