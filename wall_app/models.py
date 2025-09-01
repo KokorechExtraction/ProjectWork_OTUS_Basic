@@ -5,7 +5,7 @@ class Post(models.Model):
     author = models.ForeignKey("Author", on_delete=models.CASCADE, related_name="post")
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
-    rating = models.IntegerField(default=0)
+    likes_counter = models.IntegerField(default=0,)
 
     tags = models.ManyToManyField('Tag', related_name='posts')
     views = models.IntegerField(default=0)
