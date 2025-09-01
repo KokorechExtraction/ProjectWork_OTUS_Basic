@@ -7,10 +7,10 @@ from wall_app.models import Post
 class PostModelForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['content', 'rating', 'author', 'tags']
+        fields = ['content', 'likes_counter', 'author', 'tags']
         labels = {
             'content': 'Содержание',
-            'rating': 'Рейтинг',
+            'likes_counter': 'Likes',
             'author': 'Автор',
             'tags': 'Тэги'
         }
