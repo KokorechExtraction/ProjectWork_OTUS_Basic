@@ -17,6 +17,13 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/register/">Регистрация</a>
                 </li>
+
+                {% if request.user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'profile_detail' user.pk %}">Стена</a>
+                </li>
+                {% endif %}
+
             </ul>
 
 
@@ -32,6 +39,7 @@
 
                 <a class="nav-link active" aria-current="page" href="{% url 'profile' user.pk %}">{{ request.user }}</a>
             </li>
+
 
 
         </ul>

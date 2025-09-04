@@ -7,7 +7,7 @@ def send_info_email(recipient_email, subject, message):
     send_mail(
         subject=subject,
         message=message,
-        from_email='admin@admin.ru',
+        from_email='1@1.ru',
         recipient_list=[recipient_email],
     )
     return f'Почта отправлена {recipient_email}'

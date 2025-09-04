@@ -1,9 +1,26 @@
-{% extends "blog_app/base.html" %}
+{% extends "base.html" %}
 
 {% block title %} {{ title }} {% endblock %}
 
 {% block content %}
-        <h1>Список постов</h1>
+
+
+
+<!--        <p>Username: {{author.username}} </p>-->
+<!--        <p>О себе: {{objects.bio}} </p>-->
+<!--        <p>Дата рождения: {{profile_list.date_of_birth}} </p>-->
+<!--        <p>Дата рождения: {{profile_detail.phone_number}} </p>-->
+
+
+
+
+        <a href="{% url 'edit_profile'  user.id %}" class="btn btm-sm btn-warning">Редактировать</a>
+        <a href="{% url 'index' %}" class="btn btn-secondary mt-3">На главную</a>
+
+
+
+
+<h1>Стена</h1>
         <ul class="list-group">
             {% for post in profile_detail.post %}
                  <li class="list-group-item">

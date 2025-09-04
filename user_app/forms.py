@@ -10,15 +10,10 @@ class CustomUserCreationForm(UserCreationForm):
         label="Электронная почта",
         widget=forms.EmailInput(attrs={"class": "form-control", "placeholder": "Введите email"}),
     )
-    phone_number = forms.CharField(
 
-        required=False,
-        label="Номер телефона",
-        widget=forms.DateInput(attrs={"class": "form-control", "placeholder": "Введите номер телефона"})
-    )
     class Meta:
         model = get_user_model()
-        fields = ("email", 'phone_number', 'password1', 'password2', )
+        fields = ("email", 'password1', 'password2', )
 
     def clean_email(self):
         email = self.cleaned_data.get("email").lower()
@@ -64,9 +59,8 @@ class CustomUserChangeForm(UserChangeForm):
 
         username = self.cleaned_data.get("username")
 
-        if len(username) <3:
-
-            raise ValidationError('Имя пользователя быть более 5 символов')
+        if len(username) < 3:
+            raise ValidationError('Имя пользователя быть более 3 символов')
         if UserModel.objects.filter(username=username).count() > 1:
             raise forms.ValidationError("Пользователь с таким username уже существует")
         return username

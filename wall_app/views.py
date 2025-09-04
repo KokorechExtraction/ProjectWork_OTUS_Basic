@@ -6,7 +6,7 @@ from .forms import PostModelForm
 
 
 
-class ProfileView(ListView):
+class ProfileDetailView(DetailView):
     model = AuthorProfile
     template_name = 'wall_app/profile_detail.html'
     context_object_name = 'profile_detail'
@@ -66,3 +66,16 @@ class AuthorProfileList(ListView):
     model = AuthorProfile
     template_name = 'wall_app/profile_list.html'
     context_object_name = 'profile_list'
+
+
+class CreateProfilePageView(CreateView):
+    model = AuthorProfile
+
+    template_name = 'wall_app/create_profile.html'
+    fields = [ 'bio',]
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+    success_url = reverse_lazy('profile_list')

@@ -7,6 +7,7 @@ from django.contrib.auth import login
 from django.contrib import messages
 
 from .models import CustomUser
+from wall_app.models import AuthorProfile
 
 
 class IndexTemplateView(TemplateView):
@@ -27,7 +28,7 @@ class RegisterView(FormView):
         user = form.save()
         login(self.request, user)
         send_info_email.delay(
-            recipient_email='user@example.com',
+            recipient_email='1@1.ru',
             subject='Аккаунт успешно зарегистрирован',
             message='Аккаунт успешно зарегистрирован'
         )
@@ -45,7 +46,8 @@ class CustomLoginView(LoginView):
 
 
 class CustomLoginOutView(LogoutView):
-    next_page = reverse_lazy("login")
+    template_name = "user_app/logout.html"
+
 
 
 class CustomProfileView(DetailView):

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+from django.conf.global_settings import EMAIL_BACKEND
 
 from django.conf.global_settings import AUTH_USER_MODEL
 
@@ -140,5 +141,5 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'admin@admin.ru'
-EMAIL_HOST_PASSWORD = 'password'
+EMAIL_HOST_USER = '1@1.ru'
+EMAIL_HOST_PASSWORD = '1'

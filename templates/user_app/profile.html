@@ -6,6 +6,8 @@
        {% if request.user.is_authenticated %}
         <p>Email: {{user.email}} </p>
         <p>Username: {{user.username}} </p>
+        <p>Имя: {{user.first_name}} </p>
+        <p>Фамилия: {{user.last_name}} </p>
         <p>Номер телефона: {{user.phone_number}}</p>
         <p>Дата рождения: {{user.date_of_birth}} </p>
 
