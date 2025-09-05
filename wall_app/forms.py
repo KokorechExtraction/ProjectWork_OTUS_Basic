@@ -7,18 +7,18 @@ from wall_app.models import Post
 class PostModelForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['content', 'likes_counter', 'author', 'tags']
+        fields = ['content', 'tags']
         labels = {
             'content': 'Содержание',
-            'likes_counter': 'Likes',
-            'author': 'Автор',
+
+
             'tags': 'Тэги'
         }
         widgets = {
             'content': forms.Textarea(attrs={'class': 'form-control', 'rows': 5, 'placeholder': 'Введите содержимое поста'}),
-            'rating': forms.NumberInput(attrs={'class': 'form-control'}),
+
             'tags': forms.SelectMultiple(attrs={'class': 'form-control'}),
-            'author': forms.Select(attrs={'class': 'form-control'}),
+
         }
 
 
