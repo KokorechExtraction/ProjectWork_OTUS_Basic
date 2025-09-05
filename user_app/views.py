@@ -68,7 +68,7 @@ class CustomProfileChangeView(UpdateView):
         return super().form_valid(form)
 
 
-class PasswordChangeView(PasswordChangeView):
+class CustomPasswordChangeView(PasswordChangeView):
     form_class = PasswordChangeForm
-    template_name = "password_change.html"
+    template_name = "user_app/password_change.html"
     success_url = reverse_lazy('login')
