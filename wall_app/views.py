@@ -49,7 +49,7 @@ class PostCreateView(CreateView):
 
     def form_valid(self, form):
         messages.success(self.request, 'Пост успешно создан')
-
+        return super().form_valid(form)
 
 class PostUpdateView(UpdateView):
     model = Post

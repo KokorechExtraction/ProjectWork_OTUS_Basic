@@ -10,15 +10,11 @@ class PostModelForm(forms.ModelForm):
         fields = ['content', 'tags']
         labels = {
             'content': 'Содержание',
-
-
             'tags': 'Тэги'
         }
         widgets = {
             'content': forms.Textarea(attrs={'class': 'form-control', 'rows': 5, 'placeholder': 'Введите содержимое поста'}),
-
             'tags': forms.SelectMultiple(attrs={'class': 'form-control'}),
-
         }
 
 
