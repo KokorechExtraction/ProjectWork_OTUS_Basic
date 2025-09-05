@@ -1,13 +1,14 @@
 from django.urls import reverse_lazy
 from django.views.generic import FormView, RedirectView, DetailView, TemplateView, UpdateView
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
+from django.contrib.auth.forms import PasswordChangeForm
 from .forms import CustomUserCreationForm, CustomAuthenticationForm, CustomUserChangeForm
 from .task import send_info_email
 from django.contrib.auth import login
 from django.contrib import messages
 
 from .models import CustomUser
-from wall_app.models import AuthorProfile
+from wall_app.models import Profile
 
 
 class IndexTemplateView(TemplateView):
@@ -23,6 +24,7 @@ class RegisterView(FormView):
     template_name = "user_app/register.html"
     form_class = CustomUserCreationForm
     success_url = reverse_lazy("login")
+    redirect_authenticated_user = True
 
     def form_valid(self, form):
         user = form.save()
@@ -64,3 +66,9 @@ class CustomProfileChangeView(UpdateView):
     def form_valid(self, form):
         messages.success(self.request, 'Профиль успешно обновлен')
         return super().form_valid(form)
+
+
+class PasswordChangeView(PasswordChangeView):
+    form_class = PasswordChangeForm
+    template_name = "password_change.html"
+    success_url = reverse_lazy('login')

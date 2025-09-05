@@ -6,10 +6,10 @@
 
 
 
-<!--        <p>Username: {{author.username}} </p>-->
-<!--        <p>О себе: {{objects.bio}} </p>-->
-<!--        <p>Дата рождения: {{profile_list.date_of_birth}} </p>-->
-<!--        <p>Дата рождения: {{profile_detail.phone_number}} </p>-->
+        <p>Username: {{profile_detail.author.username}} </p>
+        <p>О себе: {{profile_detail.bio}} </p>
+        <p>Дата рождения: {{profile_detail.author.date_of_birth}} </p>
+        <p>Дата рождения: {{profile_detail.author.phone_number}} </p>
 
 
 
@@ -20,18 +20,5 @@
 
 
 
-<h1>Стена</h1>
-        <ul class="list-group">
-            {% for post in profile_detail.post %}
-                 <li class="list-group-item">
-                     <a href="{% url 'post_detail' post.pk %}"><h3>{{ post.title }}</h3></a>
-                     <p>{{ post.content|truncatewords:50 }}</p>
-                     <small>Автор: {{ post.author.name }} | Рейтинг: {{ post.rating }} | Просмотров {{ post.views }}</small>
-                     <a href="{% url 'edit_post'  post.id %}" class="btn btm-sm btn-warning">Редактировать</a>
-                 </li>
-            {% empty %}
-                <li class="list-group-item">Нет постов</li>
 
-             {% endfor %}
-        </ul>
 {% endblock %}

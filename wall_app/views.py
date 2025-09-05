@@ -1,13 +1,29 @@
+from django.shortcuts import get_object_or_404
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib import messages
-from .models import Post, Comment, AuthorProfile
+from .models import Post, Comment, Profile
 from .forms import PostModelForm
+from user_app.models import CustomUser
 
+class ProfileListView(ListView):
+    model = Post
+    template_name = 'wall_app/wall.html'
+    context_object_name = 'wall'
 
+class UserPostListView(ListView):
+    model = Post
+    template_name = "wall_app/wall.html"
+    context_object_name = "wall"
+
+    # def get_queryset(self):
+    #     author = get_object_or_404(AuthorProfile, author=self.kwargs.get('author'))
+    #     if author:
+    #         return Post.objects.filter(author=author.order_by("created_at"))
+    #     messages.success(self.request, 'Пост успешно создан')
 
 class ProfileDetailView(DetailView):
-    model = AuthorProfile
+    model = Profile
     template_name = 'wall_app/profile_detail.html'
     context_object_name = 'profile_detail'
 
@@ -27,9 +43,9 @@ class PostDetailView(DetailView):
 
 class PostCreateView(CreateView):
     model = Post
-    template_name = 'wall_app/add_post.html'
+    template_name = 'wall_app/post_create.html'
     form_class = PostModelForm
-    success_url = reverse_lazy('profile_detail')
+    success_url = reverse_lazy('wall')
 
     def form_valid(self, form):
         messages.success(self.request, 'Пост успешно создан')
@@ -62,20 +78,5 @@ class PostDeleteView(DeleteView):
         return super().form_valid(form)
 
 
-class AuthorProfileList(ListView):
-    model = AuthorProfile
-    template_name = 'wall_app/profile_list.html'
-    context_object_name = 'profile_list'
 
 
-class CreateProfilePageView(CreateView):
-    model = AuthorProfile
-
-    template_name = 'wall_app/create_profile.html'
-    fields = [ 'bio',]
-
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)
-
-    success_url = reverse_lazy('profile_list')

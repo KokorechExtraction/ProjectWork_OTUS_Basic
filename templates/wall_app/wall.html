@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block content %}
+
+<a href="{% url 'profile_detail' user.pk %}"><h3>{{user.email}}</h3></a>
+
+<a href="{% url 'post_create'  user.pk %}" class="btn btm-sm btn-warning">Создать запись</a>
+<a class="nav-link active" aria-current="page" href="/post_create/">Войти</a>
+<!-- <a href="{% url 'post_create'  user.pk%}" class="btn btn-secondary mt-3">На главную</a>-->
+<a class="nav-item nav-link" href="{% url 'post_create' %}">Новая запись</a>
+
+<li class="nav-item">
+               <a class="nav-link active" aria-current="page" href="/login/">Войти</a>
+            </li>
+
+<!--{% if user.id == profile.user.id %}-->
+<!--        <a href="{% url 'edit_user_profile' profile.id %}"><button class="button">Edit</button></a>-->
+<!--{% endif %}-->
+
+
+
+<h1>Стена</h1>
+        <ul class="list-group">
+            {% for post in posts %}
+                 <li class="list-group-item">
+                     <a href="{% url 'post_detail' post.pk %}"><h3>{{ post.title }}</h3></a>
+                     <p>{{ post.content|truncatewords:50 }}</p>
+                     <small>Автор: {{ post.author.name }} | Рейтинг: {{ post.likes_counter }} | Просмотров {{ post.views }}</small>
+                     <a href="{% url 'edit_post'  post.id %}" class="btn btm-sm btn-warning">Редактировать</a>
+                 </li>
+            {% empty %}
+                <li class="list-group-item">Нет постов</li>
+
+             {% endfor %}
+        </ul>
+{% endblock %}
