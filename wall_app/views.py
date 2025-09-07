@@ -1,4 +1,5 @@
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
+from django.template.context_processors import request
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib import messages
@@ -14,7 +15,15 @@ class ProfileListView(ListView):
 class UserPostListView(ListView):
     model = Post
     template_name = "wall_app/wall.html"
-    context_object_name = "wall"
+    context_object_name = "posts"
+
+    def get(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return reverse_lazy('wall_app:login')
+        return super().get(self, request, *args, **kwargs)
+
+    def get_queryset(self):
+        return Post.objects.filter(wall_id=self.kwargs['pk'])
 
     # def get_queryset(self):
     #     author = get_object_or_404(AuthorProfile, author=self.kwargs.get('author'))
@@ -45,13 +54,18 @@ class PostCreateView(CreateView):
     model = Post
     template_name = 'wall_app/post_create.html'
     form_class = PostModelForm
-    success_url = reverse_lazy('wall')
+    # success_url = reverse_lazy('wall')
 
     def form_valid(self, form):
-        messages.success(self.request, 'Пост успешно создан')
-        form.instance.author = self.request.user
+        form.instance.author_id = self.request.user.id # Profile.objects.get(pk=self.request.user.id).id
+        form.instance.wall_id = self.kwargs['pk']
 
-        return super(PostCreateView, self).form_valid(form)
+        res = super().form_valid(form)
+        messages.success(self.request, 'Пост успешно создан')
+        return res
+
+    def get_success_url(self):
+        return reverse_lazy('wall', kwargs={'pk': self.request.user.id})
 
 class PostUpdateView(UpdateView):
     model = Post

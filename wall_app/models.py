@@ -8,14 +8,15 @@ class Profile(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name="user")
     bio = models.TextField(null=True, blank=True)
 
-
     def __str__(self):
         return self.user.email
 
 
 
 class Post(models.Model):
-    author = models.ForeignKey("Profile", on_delete=models.CASCADE, related_name="post")
+    author = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="author_posts")
+    wall = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="wall_posts")
+
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     likes_counter = models.IntegerField(default=0,)
@@ -28,7 +29,7 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
-    author = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name='comments')
+    author = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='comments')
     text = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')

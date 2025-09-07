@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block content %}
+    <h3>{{ post.title }}</h3>
+    <p>
+        {{ post.content }}
+    </p>
+
+        <a href="{% url 'edit_profile'  user.id %}" class="btn btm-sm btn-warning">Редактировать</a>
+        <a href="{% url 'index' %}" class="btn btn-secondary mt-3">На главную</a>
+
+
+
+{% endblock %}

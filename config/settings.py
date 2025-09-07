@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'user_app.apps.UserAppConfig',
     'wall_app.apps.WallAppConfig',
+    'chat_app.apps.ChatAppConfig',
     'django_celery_results',
 ]
 

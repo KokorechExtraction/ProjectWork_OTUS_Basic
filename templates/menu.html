@@ -11,19 +11,18 @@
                     <a class="nav-link" href="/">Главная</a>
                 </li>
 
-
-
-
+                {% if not request.user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/register/">Регистрация</a>
+                    <a class="nav-link" aria-current="page" href="/register/">Регистрация</a>
                 </li>
-
-                {% if request.user.is_authenticated %}
+                {% else %}
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{% url 'wall' user.pk %}">Стена</a>
+                    <a class="nav-link" aria-current="page" href="{% url 'wall' user.pk %}">Стена</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{% url 'chats' %}">Чатский</a>
                 </li>
                 {% endif %}
-
             </ul>
 
 
