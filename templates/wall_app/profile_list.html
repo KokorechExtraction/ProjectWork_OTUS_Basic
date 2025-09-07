@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block content %}
+
+
+
+<h1>Стена</h1>
+        <ul class="list-group">
+            {% for profile in profiles %}
+                 <li class="list-group-item">
+                     <p><a href="{% url 'wall' profile.user.pk %}">{{ profile.user.email }}</a></p>
+                     <small>Автор: {{ profile.user.email }} </small>
+                 </li>
+            {% empty %}
+                <li class="list-group-item">Нет господ</li>
+
+             {% endfor %}
+        </ul>
+{% endblock %}

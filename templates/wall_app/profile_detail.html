@@ -7,14 +7,15 @@
 
 
         <p>Username: {{profile_detail.author.username}} </p>
+        <p>email: {{profile_detail.user.email}} </p>
         <p>О себе: {{profile_detail.bio}} </p>
         <p>Дата рождения: {{profile_detail.author.date_of_birth}} </p>
         <p>Дата рождения: {{profile_detail.author.phone_number}} </p>
 
 
-
-
+{% if profile_detail.id == request.user.id %}
         <a href="{% url 'edit_profile'  user.id %}" class="btn btm-sm btn-warning">Редактировать</a>
+ {% endif %}
         <a href="{% url 'index' %}" class="btn btn-secondary mt-3">На главную</a>
 
 

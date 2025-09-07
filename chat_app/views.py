@@ -25,10 +25,10 @@ class ChatView(View, TemplateResponseMixin):
 
     def get(self, request, *args, **kwargs):
         user_id = request.user.id
-        id = self.kwargs['pk']
 
-        recipient = CustomUser.objects.get(id=id)
-        filter = (Q(sender_id=id) & Q(recipient_id=user_id)) | (Q(sender_id=user_id) & Q(recipient_id=id))
+
+        recipient = CustomUser.objects.get(id=self.kwargs['pk'])
+        filter = (Q(sender_id=self.kwargs['pk']) & Q(recipient_id=user_id)) | (Q(sender_id=user_id) & Q(recipient_id=self.kwargs['pk']))
         chat_messages = Message.objects.filter(filter).order_by('created_at').all()
 
         return self.render_to_response({

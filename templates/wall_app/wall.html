@@ -8,12 +8,15 @@
 <a href="{% url 'post_create'  user.pk %}" class="btn btm-sm btn-warning">Создать запись</a>
 {% endif %}
 
+
+
+
 <h1>Стена</h1>
         <ul class="list-group">
             {% for post in posts %}
                  <li class="list-group-item">
                      <p><a href="{% url 'post_detail' post.pk %}">{{ post.content|truncatewords:50 }}</a></p>
-                     <small>Автор: {{ post.author.name }} | Рейтинг: {{ post.likes_counter }} | Просмотров {{ post.views }}</small>
+                     <small>Автор: {{ post.author.email }} | Рейтинг: {{ post.likes_counter }} | Просмотров {{ post.views }} | Дата создания {{ post.created_at }}</small>
                  </li>
             {% empty %}
                 <li class="list-group-item">Нет постов</li>
