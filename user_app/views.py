@@ -27,6 +27,7 @@ class RegisterView(FormView):
 
 
     def form_valid(self, form):
+        form.instance.wall_id = self.request.user.id
         user = form.save()
         login(self.request, user)
         send_info_email.delay(
