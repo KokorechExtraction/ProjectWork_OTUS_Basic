@@ -20,7 +20,8 @@ RUN uv sync --locked --no-dev
 
 ENV PATH="/var/app/.venv/bin:$PATH"
 
-COPY user_app .
+COPY chat_app .
+
 
 # RUN chmod +x entrypoint.sh
 

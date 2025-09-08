@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 from django.conf.global_settings import EMAIL_BACKEND
 
 from django.conf.global_settings import AUTH_USER_MODEL
@@ -28,8 +29,9 @@ SECRET_KEY = 'django-insecure-y3!==qv)b@alx8xm^vd7@op5%h44^68538fmx*ze(!pnjt^7#s
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
 
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -40,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.postgres',
     'user_app.apps.UserAppConfig',
     'wall_app.apps.WallAppConfig',
     'chat_app.apps.ChatAppConfig',
@@ -85,6 +88,19 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': "postgres",
+#         'USER': "postgres",
+#         'PASSWORD': "postgres",
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
+
 
 
 # Password validation

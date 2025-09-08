@@ -1,15 +1,20 @@
 services:
   pg:
-    image: postgres:17.5
+    image: postgres
+    container_name: pg
+    restart: always
     environment:
-      POSTGRES_DB: blog
-      POSTGRES_USER: app
-      POSTGRES_PASSWORD: password
+      POSTGRES_NAME: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
       PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
       - pgdata:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    networks:
+      - djangonetwork
+
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready" ]
       interval: 5s
@@ -18,16 +23,38 @@ services:
 
   user_app:
     build:
-      dockerfile: ./docker-build/user_app/Dockerfile
+      dockerfile: ./docker-build/user-app/Dockerfile
       context: .
     environment:
       BLOG_APP__DB__HOST: pg
       BLOG_APP__DB__PORT: 5432
-      BLOG_APP__DB__USER: app
-      BLOG_APP__DB__PASSWORD: password
-      BLOG_APP__DB__DATABASE: blog
+      BLOG_APP__DB__USER: postgres
+      BLOG_APP__DB__PASSWORD: postgres
+      BLOG_APP__DB__DATABASE: postgres
 
 
+  wall_app:
+    build:
+      dockerfile: ./docker-build/wall-app/Dockerfile
+      context: .
+    environment:
+      BLOG_APP__DB__HOST: pg
+      BLOG_APP__DB__PORT: 5432
+      BLOG_APP__DB__USER: postgres
+      BLOG_APP__DB__PASSWORD: postgres
+      BLOG_APP__DB__DATABASE: postgres
+
+
+  chat_app:
+    build:
+      dockerfile: ./docker-build/chat-app/Dockerfile
+      context: .
+    environment:
+      BLOG_APP__DB__HOST: pg
+      BLOG_APP__DB__PORT: 5432
+      BLOG_APP__DB__USER: postgres
+      BLOG_APP__DB__PASSWORD: postgres
+      BLOG_APP__DB__DATABASE: postgres
 
 
 
@@ -46,6 +73,13 @@ services:
     depends_on:
       pg:
         condition: service_healthy
+
+
+
+
+networks:
+  djangonetwork:
+    driver: bridge
 
 volumes:
   pgdata:
